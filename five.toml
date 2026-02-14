@@ -1,0 +1,27 @@
+# 5IVE VM Project Configuration
+[project]
+name = "5ive-token"
+version = "0.1.0"
+description = "A 5IVE VM project"
+source_dir = "src"
+build_dir = "build"
+target = "vm"
+
+[optimizations]
+enable_compression = true
+enable_constraint_optimization = true
+optimization_level = "production"
+
+[dependencies]
+# Add project dependencies here
+# example = { path = "../example" }
+
+[build]
+# Custom build settings
+max_bytecode_size = 1048576  # 1MB
+target_compute_units = 200000
+
+[deploy]
+# Deployment settings
+network = "devnet"
+# program_id = "your-program-id"
