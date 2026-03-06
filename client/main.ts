@@ -111,10 +111,6 @@ async function ensureDeployedScriptAccount(
   return deployment.programId;
 }
 
-function placeholderPubkey(): string {
-  return Keypair.generate().publicKey.toBase58();
-}
-
 function getAccountOverrides(functionName: string): Record<string, string> {
   return ACCOUNT_OVERRIDES[functionName] || ACCOUNT_OVERRIDES['*'] || {};
 }
@@ -132,7 +128,9 @@ function defaultValueForType(typeName: string | undefined): any {
   const normalized = (typeName || '').toLowerCase();
   if (normalized === 'bool' || normalized === 'boolean') return true;
   if (normalized.startsWith('string')) return 'demo';
-  if (normalized === 'pubkey') return placeholderPubkey();
+  if (normalized === 'pubkey') {
+    throw new Error('Missing pubkey argument value. Provide an explicit value in the client input mapping.');
+  }
   return 1;
 }
 
@@ -180,7 +178,9 @@ async function run(): Promise<void> {
         if (Array.isArray(attributes) && attributes.includes('signer')) {
           accountArgs[param.name] = payer.publicKey.toBase58();
         } else {
-          accountArgs[param.name] = placeholderPubkey();
+          throw new Error(
+            `Missing account override for '${param.name}' in function '${functionName}'. Add it to ACCOUNT_OVERRIDES.`
+          );
         }
       } else {
         dataArgs[param.name] = defaultValueForType(param.param_type || param.type);
