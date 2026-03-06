@@ -1,9 +1,12 @@
+schema_version = 1
+
 # 5IVE VM Project Configuration
 [project]
 name = "5ive-token"
 version = "0.1.0"
 description = "A 5IVE VM project"
 source_dir = "src"
+entry_point = "src/token.v"
 build_dir = "build"
 target = "vm"
 
@@ -13,11 +16,11 @@ enable_constraint_optimization = true
 optimization_level = "production"
 
 [dependencies]
-# Add project dependencies here
-# example = { path = "../example" }
+std = { package = "@5ive/std", version = "0.1.0", source = "bundled", link = "inline" }
 
 [build]
 # Custom build settings
+output_artifact_name = "main"
 max_bytecode_size = 1048576  # 1MB
 target_compute_units = 200000
 

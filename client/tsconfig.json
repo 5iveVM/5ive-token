@@ -9,6 +9,7 @@
     "outDir": "dist"
   },
   "include": [
-    "main.ts"
+    "main.ts",
+    "token.ts"
   ]
 }

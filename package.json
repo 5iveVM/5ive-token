@@ -5,14 +5,22 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "build": "5ive compile src/**/*.v",
-    "test": "5ive test",
-    "deploy": "5ive deploy",
-    "build:release": "5ive compile src/**/*.v -O 3",
-    "build:debug": "5ive compile src/**/*.v --debug",
-    "watch": "5ive compile src/**/*.v --watch",
+    "build": "node ../five-cli/dist/index.js build --project .",
+    "test": "node ../five-cli/dist/index.js test",
+    "test:onchain:local": "npm run client:run:local",
+    "test:onchain:devnet": "npm run client:run:devnet",
+    "deploy:local": "node ../five-cli/dist/index.js deploy build/*.five --project . --target local",
+    "deploy:devnet": "node ../five-cli/dist/index.js deploy build/*.five --project . --target devnet",
+    "verify": "npm run build && npm run test && npm run test:onchain:local && npm run client:run:local",
     "client:build": "npm --prefix client install && npm --prefix client run build",
-    "client:run": "npm --prefix client install && npm --prefix client run run"
+    "client:run": "npm --prefix client install && npm --prefix client run run",
+    "client:run:local": "FIVE_NETWORK=localnet npm run client:run",
+    "client:run:devnet": "FIVE_NETWORK=devnet npm run client:run",
+    "deploy": "node ../five-cli/dist/index.js deploy build/*.five --project .",
+    "build:release": "node ../five-cli/dist/index.js compile src/**/*.v -O 3",
+    "build:debug": "node ../five-cli/dist/index.js compile src/**/*.v --debug",
+    "watch": "node ../five-cli/dist/index.js compile src/**/*.v --watch",
+    "client:token": "npm --prefix client install && npm --prefix client run run:token"
   },
   "devDependencies": {
     "@5ive-tech/cli": "^1.0.0"

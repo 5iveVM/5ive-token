@@ -1,0 +1,13 @@
+{
+  "artifact_path": "/Users/ivmidable/Development/five-mono/5ive-token/build/main.five",
+  "compiler_version": "unknown",
+  "source_files": [
+    "/Users/ivmidable/Development/five-mono/5ive-token/src/token.v"
+  ],
+  "target": "vm",
+  "timestamp": "2026-03-06T19:53:10.460Z",
+  "hash": "ef861b394d589cc641aeaaeac894e7328ebf299dfdff37fa2be1764a8f3a04bc",
+  "format": "five",
+  "entry_point": "src/token.v",
+  "source_dir": "src"
+}

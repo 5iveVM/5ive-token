@@ -10,14 +10,14 @@ pub init_counter(
     authority: account @signer
 ) {
     counter.value = 0;
-    counter.authority = authority.key;
+    counter.authority = authority.ctx.key;
 }
 
 pub increment(
     counter: Counter @mut,
     authority: account @signer
 ) {
-    require(counter.authority == authority.key);
+    require(counter.authority == authority.ctx.key);
     counter.value = counter.value + 1;
 }
 
