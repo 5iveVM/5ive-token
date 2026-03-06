@@ -379,7 +379,7 @@ Confirmed return types: `u8`, `u16`, `u32`, `u64`, `u128`, `i8`..`i64`, `bool`, 
 
 ### 6.1 Install and identity
 ```bash
-npm install -g @5ive-tech/cli
+node ../five-cli/dist/index.js --help
 5ive --version
 ```
 
@@ -391,9 +391,9 @@ cd my-program
 
 ### 6.3 Compile
 ```bash
-5ive compile src/main.v -o build/main.five
+node ../five-cli/dist/index.js compile src/token.v -o build/main.five
 # or project-aware
-5ive build
+node ../five-cli/dist/index.js build --project .
 ```
 
 ### 6.4 Local execute
@@ -424,12 +424,12 @@ cd my-program
 
 ### 6.8 Test modes
 ```bash
-5ive test --sdk-runner
-5ive test --filter "test_*" --verbose
-5ive test --on-chain --target local
-5ive test tests/ --on-chain --target devnet
-5ive test tests/ --on-chain --target mainnet --allow-mainnet-tests --max-cost-sol 0.5
-5ive test --sdk-runner --format json
+node ../five-cli/dist/index.js test --sdk-runner
+node ../five-cli/dist/index.js test --filter "test_*" --verbose
+node ../five-cli/dist/index.js test --on-chain --target local
+node ../five-cli/dist/index.js test tests/ --on-chain --target devnet
+node ../five-cli/dist/index.js test tests/ --on-chain --target mainnet --allow-mainnet-tests --max-cost-sol 0.5
+node ../five-cli/dist/index.js test --sdk-runner --format json
 ```
 
 ## 7) Program ID and Target Resolution
@@ -819,7 +819,7 @@ Follow this procedure to produce correct 5IVE contracts on first compilation, re
 - `return state.field;` to return account data.
 
 ### Step 6: Compile and verify
-- Run `5ive build` or `5ive compile src/main.v -o build/main.five`.
+- Run `node ../five-cli/dist/index.js build --project .` or `node ../five-cli/dist/index.js compile src/token.v -o build/main.five`.
 - Fix any parser errors (most common: missing `;` in account fields).
 
 ### Syntax quick-reference
