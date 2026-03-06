@@ -10,6 +10,7 @@ import {
   sendAndConfirmTransaction
 } from '@solana/web3.js';
 import { FiveProgram, FiveSDK } from '@5ive-tech/sdk';
+import { CLIENT_ENV } from './env.js';
 
 type AbiParameter = {
   name: string;
@@ -18,8 +19,8 @@ type AbiParameter = {
   type?: string;
 };
 
-const DEVNET_RPC_URL = 'https://api.devnet.solana.com';
-const DEVNET_FIVE_VM_PROGRAM_ID = '4Qxf3pbCse2veUgZVMiAm3nWqJrYo2pT4suxHKMJdK1d';
+const RPC_URL = CLIENT_ENV.rpcUrl;
+const FIVE_VM_PROGRAM_ID = CLIENT_ENV.fiveVmProgramId;
 const SCRIPT_ACCOUNT_FILE = join(process.cwd(), 'script-account.json');
 const FALLBACK_PAYER_FILE = join(process.cwd(), 'payer.json');
 const ACCOUNT_OVERRIDES: Record<string, Record<string, string>> = {
@@ -38,7 +39,7 @@ function normalizePath(path: string): string {
 }
 
 async function loadPayer(): Promise<Keypair> {
-  const defaultPath = normalizePath('~/.config/solana/id.json');
+  const defaultPath = normalizePath(CLIENT_ENV.payerPath);
   try {
     const secret = JSON.parse(await readFile(defaultPath, 'utf8')) as number[];
     return Keypair.fromSecretKey(new Uint8Array(secret));
@@ -55,27 +56,59 @@ async function loadPayer(): Promise<Keypair> {
   }
 }
 
-async function loadOrCreateScriptAccount(): Promise<string> {
+async function loadSavedScriptAccount(): Promise<string | undefined> {
   try {
     const saved = JSON.parse(await readFile(SCRIPT_ACCOUNT_FILE, 'utf8')) as { pubkey?: string };
-    if (saved.pubkey) return saved.pubkey;
+    return saved.pubkey;
   } catch {
-    // create below
+    return undefined;
   }
-  const kp = Keypair.generate();
+}
+
+async function saveScriptAccount(pubkey: string, transactionId?: string): Promise<void> {
   const { writeFile } = await import('fs/promises');
   await writeFile(
     SCRIPT_ACCOUNT_FILE,
     JSON.stringify(
       {
-        pubkey: kp.publicKey.toBase58(),
-        secretKey: Array.from(kp.secretKey)
+        pubkey,
+        transactionId,
+        updatedAt: new Date().toISOString()
       },
       null,
       2
     ) + '\n'
   );
-  return kp.publicKey.toBase58();
+}
+
+async function ensureDeployedScriptAccount(
+  connection: Connection,
+  payer: Keypair,
+  bytecode: Uint8Array
+): Promise<string> {
+  const saved = await loadSavedScriptAccount();
+  const vmProgramId = new PublicKey(FIVE_VM_PROGRAM_ID);
+
+  if (saved) {
+    try {
+      const info = await connection.getAccountInfo(new PublicKey(saved));
+      if (info && info.owner.equals(vmProgramId)) {
+        return saved;
+      }
+    } catch {
+      // redeploy below
+    }
+  }
+
+  const deployment = await FiveSDK.deployToSolana(bytecode, connection, payer, {
+    fiveVMProgramId: FIVE_VM_PROGRAM_ID
+  });
+  if (!deployment.success || !deployment.programId) {
+    throw new Error(`Failed to deploy token script: ${deployment.error || 'unknown error'}`);
+  }
+
+  await saveScriptAccount(deployment.programId, deployment.transactionId);
+  return deployment.programId;
 }
 
 function placeholderPubkey(): string {
@@ -106,13 +139,13 @@ function defaultValueForType(typeName: string | undefined): any {
 async function run(): Promise<void> {
   const artifactPath = join(process.cwd(), '..', 'build', 'main.five');
   const artifactText = await readFile(artifactPath, 'utf8');
-  const { abi } = await FiveSDK.loadFiveFile(artifactText);
+  const { abi, bytecode } = await FiveSDK.loadFiveFile(artifactText);
 
-  const connection = new Connection(DEVNET_RPC_URL, 'confirmed');
+  const connection = new Connection(RPC_URL, 'confirmed');
   const payer = await loadPayer();
-  const scriptAccount = await loadOrCreateScriptAccount();
+  const scriptAccount = await ensureDeployedScriptAccount(connection, payer, bytecode);
   const program = FiveProgram.fromABI(scriptAccount, abi, {
-    fiveVMProgramId: DEVNET_FIVE_VM_PROGRAM_ID
+    fiveVMProgramId: FIVE_VM_PROGRAM_ID
   });
   const fiveVmProgramId = program.getFiveVMProgramId();
 
@@ -128,7 +161,7 @@ async function run(): Promise<void> {
   }
 
   console.log('[client] Loaded ABI from ../build/main.five');
-  console.log('[client] RPC:', DEVNET_RPC_URL);
+  console.log('[client] RPC:', RPC_URL);
   console.log('[client] Payer:', payer.publicKey.toBase58());
   console.log('[client] Script account:', scriptAccount);
   console.log('[client] Five VM program id:', fiveVmProgramId);

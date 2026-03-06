@@ -6,10 +6,12 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc --noEmit -p tsconfig.json",
-    "run": "npm run build && node dist/main.js"
+    "run": "npm run build && node dist/token.js",
+    "run:token": "npm run build && node dist/token.js",
+    "run:token:localnet": "npm run build && node dist/token.js --localnet"
   },
   "dependencies": {
-    "@5ive-tech/sdk": "^1.1.7",
+    "@5ive-tech/sdk": "file:../../five-sdk",
     "@solana/web3.js": "^1.98.4"
   },
   "devDependencies": {
