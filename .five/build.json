@@ -5,7 +5,7 @@
     "/Users/ivmidable/Development/five-mono/5ive-token/src/token.v"
   ],
   "target": "vm",
-  "timestamp": "2026-03-06T19:53:10.460Z",
+  "timestamp": "2026-03-06T21:23:30.086Z",
   "hash": "ef861b394d589cc641aeaaeac894e7328ebf299dfdff37fa2be1764a8f3a04bc",
   "format": "five",
   "entry_point": "src/token.v",

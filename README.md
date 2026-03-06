@@ -7,7 +7,7 @@ A basic project built with 5IVE VM.
 ### Prerequisites
 
 - Node.js 18+
-- 5IVE CLI: `npm install -g @5ive-tech/cli`
+- Local monorepo CLI build: `node ../five-cli/dist/index.js --help`
 
 ### Building
 
@@ -33,21 +33,21 @@ npm run build:debug
 npm test
 
 # Run with watch mode for continuous testing
-5ive test --watch
+node ../five-cli/dist/index.js test --watch
 
 # Run specific tests by filter
-5ive test --filter "test_add"
+node ../five-cli/dist/index.js test --filter "test_add"
 
 # Run with verbose output
-5ive test --verbose
+node ../five-cli/dist/index.js test --verbose
 
 # Run with JSON output for CI/CD
-5ive test --format json
+node ../five-cli/dist/index.js test --format json
 
 # Run on-chain tests (local/devnet/mainnet)
-5ive test --on-chain --target local
-5ive test --on-chain --target devnet
-5ive test --on-chain --target mainnet --allow-mainnet-tests --max-cost-sol 0.5
+node ../five-cli/dist/index.js test --on-chain --target local
+node ../five-cli/dist/index.js test --on-chain --target devnet
+node ../five-cli/dist/index.js test --on-chain --target mainnet --allow-mainnet-tests --max-cost-sol 0.5
 ```
 
 #### Writing Tests
@@ -118,10 +118,10 @@ If your project uses multiple modules with `use` or `import` statements, 5IVE CL
 
 ```bash
 # Automatic discovery of imported modules
-5ive compile src/main.v --auto-discover
+node ../five-cli/dist/index.js compile src/token.v --auto-discover
 
 # Or use the build command which respects five.toml configuration
-5ive build
+node ../five-cli/dist/index.js build --project .
 ```
 
 ## Learn More

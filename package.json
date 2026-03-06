@@ -11,7 +11,7 @@
     "test:onchain:devnet": "npm run client:run:devnet",
     "deploy:local": "node ../five-cli/dist/index.js deploy build/*.five --project . --target local",
     "deploy:devnet": "node ../five-cli/dist/index.js deploy build/*.five --project . --target devnet",
-    "verify": "npm run build && npm run test && npm run test:onchain:local && npm run client:run:local",
+    "verify": "npm run build && npm run test && npm run test:onchain:local",
     "client:build": "npm --prefix client install && npm --prefix client run build",
     "client:run": "npm --prefix client install && npm --prefix client run run",
     "client:run:local": "FIVE_NETWORK=localnet npm run client:run",
