@@ -80,9 +80,6 @@ async function ensureDeployedScriptAccount(connection, payer, bytecode) {
     await saveScriptAccount(deployment.programId, deployment.transactionId);
     return deployment.programId;
 }
-function placeholderPubkey() {
-    return Keypair.generate().publicKey.toBase58();
-}
 function getAccountOverrides(functionName) {
     return ACCOUNT_OVERRIDES[functionName] || ACCOUNT_OVERRIDES['*'] || {};
 }
@@ -102,8 +99,9 @@ function defaultValueForType(typeName) {
         return true;
     if (normalized.startsWith('string'))
         return 'demo';
-    if (normalized === 'pubkey')
-        return placeholderPubkey();
+    if (normalized === 'pubkey') {
+        throw new Error('Missing pubkey argument value. Provide an explicit value in the client input mapping.');
+    }
     return 1;
 }
 async function run() {
@@ -145,7 +143,7 @@ async function run() {
                     accountArgs[param.name] = payer.publicKey.toBase58();
                 }
                 else {
-                    accountArgs[param.name] = placeholderPubkey();
+                    throw new Error(`Missing account override for '${param.name}' in function '${functionName}'. Add it to ACCOUNT_OVERRIDES.`);
                 }
             }
             else {
