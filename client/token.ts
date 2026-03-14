@@ -14,18 +14,29 @@ import { FiveProgram, FiveSDK } from '@5ive-tech/sdk';
 import { CLIENT_ENV } from './env.js';
 
 const NETWORK = process.env.FIVE_NETWORK || (process.argv.includes('--localnet') ? 'localnet' : CLIENT_ENV.network);
-const RPC_URL = process.env.FIVE_RPC_URL || (NETWORK === 'localnet' ? 'http://127.0.0.1:8899' : CLIENT_ENV.rpcUrl);
+const RPC_BY_NETWORK: Record<string, string> = {
+  localnet: 'http://127.0.0.1:8899',
+  devnet: 'https://api.devnet.solana.com',
+  mainnet: 'https://api.mainnet-beta.solana.com',
+};
+const RPC_URL = process.env.FIVE_RPC_URL || (RPC_BY_NETWORK[NETWORK] || CLIENT_ENV.rpcUrl);
+const PROGRAM_BY_NETWORK: Record<string, string> = {
+  localnet: '8h8gqgMhfq5qmPbs9nNHkXNoy2jb1JywxaRC6W68wGVm',
+  devnet: '5ive58PJUPaTyAe7tvU1bvBi25o7oieLLTRsJDoQNJst',
+  mainnet: '5ive58PJUPaTyAe7tvU1bvBi25o7oieLLTRsJDoQNJst',
+};
 const FIVE_VM_PROGRAM_ID = process.env.FIVE_VM_PROGRAM_ID || process.env.FIVE_PROGRAM_ID || (
-  NETWORK === 'localnet'
-    ? 'FmzLpEQryX1UDtNjDBPx9GDsXiThFtzjsZXtTLNLU7Vb'
-    : CLIENT_ENV.fiveVmProgramId
+  PROGRAM_BY_NETWORK[NETWORK] || CLIENT_ENV.fiveVmProgramId
 );
+const VM_STATE_BY_NETWORK: Record<string, string> = {
+  localnet: '3grckjTe9o2AcNq7GWRtJFsYBHdsTAZeSDCGcUkyftCm',
+  devnet: '8ip3qGGETf8774jo6kXbsTTrMm5V9bLuGC4znmyZjT3z',
+  mainnet: 'GMQFFG9iy63CyUTq1pbXrAK9AcWYLbtcx5vm6KUT7CDY',
+};
 const VM_STATE_ACCOUNT =
   process.env.FIVE_VM_STATE_ACCOUNT ||
   process.env.VM_STATE_PDA ||
-  (NETWORK === 'localnet'
-    ? 'GMQFFG9iy63CyUTq1pbXrAK9AcWYLbtcx5vm6KUT7CDY'
-    : '8ip3qGGETf8774jo6kXbsTTrMm5V9bLuGC4znmyZjT3z');
+  (VM_STATE_BY_NETWORK[NETWORK] || VM_STATE_BY_NETWORK.localnet);
 const SCRIPT_ACCOUNT_FILE = join(process.cwd(), `token-script-account.${NETWORK}.json`);
 const FALLBACK_PAYER_FILE = join(process.cwd(), 'payer.json');
 

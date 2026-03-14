@@ -1,0 +1,8 @@
+{
+  "network": "mainnet",
+  "rpcUrl": "https://api.mainnet-beta.solana.com",
+  "fiveProgramId": "<REPLACE_WITH_MAINNET_VM_PROGRAM_ID>",
+  "vmStatePda": "<REPLACE_WITH_MAINNET_VM_STATE_PDA>",
+  "tokenScriptAccount": "<REPLACE_WITH_MAINNET_TOKEN_SCRIPT_ACCOUNT>",
+  "updatedAt": "<SET_DURING_ROLLOUT>"
+}
