@@ -1,12 +1,12 @@
 {
-  "artifact_path": "/Users/ivmidable/Development/five-mono/5ive-token/build/main.five",
+  "artifact_path": "/Users/amberjackson/Documents/Development/five-org/five-mono/5ive-token/build/main.five",
   "compiler_version": "unknown",
   "source_files": [
-    "/Users/ivmidable/Development/five-mono/5ive-token/src/token.v"
+    "/Users/amberjackson/Documents/Development/five-org/five-mono/5ive-token/src/token.v"
   ],
   "target": "vm",
-  "timestamp": "2026-03-12T23:10:52.874Z",
-  "hash": "ef861b394d589cc641aeaaeac894e7328ebf299dfdff37fa2be1764a8f3a04bc",
+  "timestamp": "2026-03-16T07:49:14.876Z",
+  "hash": "1387ef244561b79780975eb06e8f3ababd7efa275af9b66fc61de241c118460a",
   "format": "five",
   "entry_point": "src/token.v",
   "source_dir": "src"
