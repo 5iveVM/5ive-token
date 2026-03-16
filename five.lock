@@ -3,9 +3,9 @@ version = 1
 [[packages]]
 name = "5ive-token"
 version = "0.0.0"
-address = "7t75HKUpmTMxsughTaWvhNwA8ZPYNxFwBJHPEZQ1pi1b"
+address = "6m83LBwsxzqAHtVPxmYvxvAjpfLAp9yW9oSS9tudN1hW"
 bytecode_hash = "b5ea36b93f5184bc8e6b356ad1d1937d45dc40c9441540ad41eb129c1314f562"
-deployed_at = "2026-03-07T04:50:37.709Z"
+deployed_at = "2026-03-16T02:11:40.355Z"
 
   [packages.exports]
   methods = [
