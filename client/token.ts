@@ -22,8 +22,8 @@ const RPC_BY_NETWORK: Record<string, string> = {
 const RPC_URL = process.env.FIVE_RPC_URL || (RPC_BY_NETWORK[NETWORK] || CLIENT_ENV.rpcUrl);
 const PROGRAM_BY_NETWORK: Record<string, string> = {
   localnet: '8h8gqgMhfq5qmPbs9nNHkXNoy2jb1JywxaRC6W68wGVm',
-  devnet: '5ive58PJUPaTyAe7tvU1bvBi25o7oieLLTRsJDoQNJst',
-  mainnet: '5ive58PJUPaTyAe7tvU1bvBi25o7oieLLTRsJDoQNJst',
+  devnet: '5ive5uKDkc3Yhyfu1Sk7i3eVPDQUmG2GmTm2FnUZiTJd',
+  mainnet: '5ive5uKDkc3Yhyfu1Sk7i3eVPDQUmG2GmTm2FnUZiTJd',
 };
 const FIVE_VM_PROGRAM_ID = process.env.FIVE_VM_PROGRAM_ID || process.env.FIVE_PROGRAM_ID || (
   PROGRAM_BY_NETWORK[NETWORK] || CLIENT_ENV.fiveVmProgramId
