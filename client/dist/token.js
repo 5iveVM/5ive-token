@@ -13,8 +13,8 @@ const RPC_BY_NETWORK = {
 const RPC_URL = process.env.FIVE_RPC_URL || (RPC_BY_NETWORK[NETWORK] || CLIENT_ENV.rpcUrl);
 const PROGRAM_BY_NETWORK = {
     localnet: '8h8gqgMhfq5qmPbs9nNHkXNoy2jb1JywxaRC6W68wGVm',
-    devnet: '5ive5uKDkc3Yhyfu1Sk7i3eVPDQUmG2GmTm2FnUZiTJd',
-    mainnet: '5ive5uKDkc3Yhyfu1Sk7i3eVPDQUmG2GmTm2FnUZiTJd',
+    devnet: '5ive5hbC3aRsvq37MP5m4sHtTSFxT4Cq1smS4ddyWJ6h',
+    mainnet: '5ive5hbC3aRsvq37MP5m4sHtTSFxT4Cq1smS4ddyWJ6h',
 };
 const FIVE_VM_PROGRAM_ID = process.env.FIVE_VM_PROGRAM_ID || process.env.FIVE_PROGRAM_ID || (PROGRAM_BY_NETWORK[NETWORK] || CLIENT_ENV.fiveVmProgramId);
 const VM_STATE_BY_NETWORK = {

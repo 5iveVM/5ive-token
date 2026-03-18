@@ -5,11 +5,11 @@ const DEFAULTS = {
     },
     devnet: {
         rpcUrl: 'https://api.devnet.solana.com',
-        fiveVmProgramId: '5ive5uKDkc3Yhyfu1Sk7i3eVPDQUmG2GmTm2FnUZiTJd'
+        fiveVmProgramId: '5ive5hbC3aRsvq37MP5m4sHtTSFxT4Cq1smS4ddyWJ6h'
     },
     mainnet: {
         rpcUrl: 'https://api.mainnet-beta.solana.com',
-        fiveVmProgramId: '5ive5uKDkc3Yhyfu1Sk7i3eVPDQUmG2GmTm2FnUZiTJd'
+        fiveVmProgramId: '5ive5hbC3aRsvq37MP5m4sHtTSFxT4Cq1smS4ddyWJ6h'
     }
 };
 const network = process.env.FIVE_NETWORK || 'devnet';
