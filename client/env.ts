@@ -1,15 +1,15 @@
 const DEFAULTS = {
   localnet: {
     rpcUrl: 'http://127.0.0.1:8899',
-    fiveVmProgramId: '8h8gqgMhfq5qmPbs9nNHkXNoy2jb1JywxaRC6W68wGVm'
+    fiveVmProgramId: '55555SyrYLzydvDMBhAL8uo6h4WETHTm81z8btf6nAVJ'
   },
   devnet: {
     rpcUrl: 'https://api.devnet.solana.com',
-    fiveVmProgramId: '5ive5hbC3aRsvq37MP5m4sHtTSFxT4Cq1smS4ddyWJ6h'
+    fiveVmProgramId: '55555SyrYLzydvDMBhAL8uo6h4WETHTm81z8btf6nAVJ'
   },
   mainnet: {
     rpcUrl: 'https://api.mainnet-beta.solana.com',
-    fiveVmProgramId: '5ive5hbC3aRsvq37MP5m4sHtTSFxT4Cq1smS4ddyWJ6h'
+    fiveVmProgramId: '55555SyrYLzydvDMBhAL8uo6h4WETHTm81z8btf6nAVJ'
   }
 } as const;
 

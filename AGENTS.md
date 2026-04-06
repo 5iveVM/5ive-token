@@ -235,7 +235,7 @@ Interfaces define external program calls. **Empirically verified rules:**
 
 ```v
 // ✅ CORRECT: SPL Token (bincode, manual discriminators)
-interface SPLToken @program("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA") {
+interface SPLToken @program("55555SyrYLzydvDMBhAL8uo6h4WETHTm81z8btf6nAVJ") {
     transfer @discriminator(3) (
         source: Account,
         destination: Account,
